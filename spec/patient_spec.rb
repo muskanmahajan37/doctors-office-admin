@@ -32,5 +32,14 @@ describe 'patient' do
     end
   end
 
+  describe 'remove' do
+    it 'removes a patient' do
+      new_patient = Patient.new({:name=>'Joe'})
+      new_patient.save
+      new_patient.remove
+      expect(Patient.all).to eq []
+    end
+  end
+
 end
 

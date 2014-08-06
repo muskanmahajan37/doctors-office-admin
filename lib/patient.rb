@@ -27,13 +27,17 @@ class Patient
   end
 
   def save
-    results = DB.exec("INSERT INTO patients (name, birthdate) VALUES ('#{name}', '#{birthdate}') RETURNING id;")
+    results = DB.exec("INSERT INTO patients (name) VALUES ('#{name}') RETURNING id;")
     @id = results.first['id'].to_i
   end
 
   def assign_doctor number
     DB.exec("UPDATE patients SET doctor_id = #{number} WHERE id = #{id};")
     @doctor_id = number
+  end
+
+  def remove
+    DB.exec("DELETE FROM patients WHERE id = #{id}")
   end
 
   def == another_patient
