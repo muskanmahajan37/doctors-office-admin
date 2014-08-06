@@ -26,6 +26,10 @@ class Insurance
     @id = results.first['id'].to_i
   end
 
+  def remove
+    DB.exec("DELETE FROM insurance WHERE id = #{id}")
+  end
+
   def == another_insurance
     self.company == another_insurance.company && self.id == another_insurance.id
   end

@@ -23,5 +23,14 @@ describe 'Insurance' do
       expect(Insurance.all).to eq [new_insurance1, new_insurance2, new_insurance3]
     end
   end
+
+  describe 'remove' do
+    it 'removes a insurance' do
+      new_insurance = Insurance.new({:company=>'Red Shield'})
+      new_insurance.save
+      new_insurance.remove
+      expect(Insurance.all).to eq []
+    end
+  end
 end
 
