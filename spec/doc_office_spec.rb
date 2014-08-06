@@ -3,6 +3,7 @@ require 'doctor'
 require 'patient'
 require 'specialty'
 require 'insurance'
+require 'appointment'
 
 DB = PG.connect({:dbname => 'doc_office_test'})
 
