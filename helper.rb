@@ -15,3 +15,9 @@ end
 def ws
   puts "\n"
 end
+
+def ln
+  ws
+  puts "******"
+  ws
+end

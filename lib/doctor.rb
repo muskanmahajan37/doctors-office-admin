@@ -26,6 +26,22 @@ class Doctor
     doctors
   end
 
+  def self.find_by_id num
+    doctor = []
+    results = DB.exec("SELECT * FROM doctors WHERE id = #{num}")
+    results.each do |result|
+      attributes = {
+        :name => result['name'],
+        :specialty => result['specialty'].to_i,
+        :insurance => result['insurance'].to_i,
+        :patient_count => result['patient_count'].to_i,
+        :id => result['id'].to_i
+      }
+      doctor << Doctor.new(attributes)
+    end
+    doctor
+  end
+
   def patient_count
     count = 0
     Patient.all.each do |patient|
@@ -64,9 +80,19 @@ class Doctor
     @specialty = number.to_i
   end
 
+  def find_specialty
+    spec = DB.exec("SELECT * FROM specialties WHERE id = #{specialty}")
+    spec.to_s
+  end
+
   def edit_insurance number
     DB.exec("UPDATE doctors SET insurance = #{number} WHERE id = #{id};")
     @insurance = number.to_i
+  end
+
+  def find_insurance
+    insur = DB.exec("SELECT * FROM insurance WHERE id = #{insurance}")
+    insur.to_s
   end
 
   def == another_doctor
