@@ -26,6 +26,10 @@ class Specialty
     @id = results.first['id'].to_i
   end
 
+  def remove
+    DB.exec("DELETE FROM specialties WHERE id = #{id}")
+  end
+
   def == another_specialty
     self.name == another_specialty.name && self.id == another_specialty.id
   end

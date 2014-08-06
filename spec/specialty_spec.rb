@@ -23,4 +23,13 @@ describe 'Specialty' do
       expect(Specialty.all).to eq [new_specialty1, new_specialty2, new_specialty3]
     end
   end
+
+  describe 'remove' do
+    it 'removes a specialty' do
+      new_specialty = Specialty.new({:name=>'Orthopedic'})
+      new_specialty.save
+      new_specialty.remove
+      expect(Specialty.all).to eq []
+    end
+  end
 end
