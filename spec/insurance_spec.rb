@@ -11,4 +11,17 @@ describe 'Insurance' do
       expect(Insurance.all).to eq []
     end
   end
+
+  describe 'save' do
+    it 'saves a new insurance' do
+      new_insurance1 = Insurance.new({:company=>'Swag Farm'})
+      new_insurance1.save
+      new_insurance2 = Insurance.new({:company=>'Red Shield'})
+      new_insurance2.save
+      new_insurance3 = Insurance.new({:company=>'Advantage'})
+      new_insurance3.save
+      expect(Insurance.all).to eq [new_insurance1, new_insurance2, new_insurance3]
+    end
+  end
 end
+

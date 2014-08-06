@@ -67,4 +67,13 @@ describe 'Doctor' do
       expect(Doctor.list_by_insurance(1)).to eq [new_doctor1, new_doctor2]
     end
   end
+
+  describe 'remove' do
+    it 'removes a doctor' do
+      new_doctor = Doctor.new({:name=>'Joe'})
+      new_doctor.save
+      new_doctor.remove
+      expect(Doctor.all).to eq []
+    end
+  end
 end

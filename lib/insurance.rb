@@ -20,4 +20,13 @@ class Insurance
     end
     insurance
   end
+
+  def save
+    results = DB.exec("INSERT INTO insurance (company) VALUES ('#{company}') RETURNING id;")
+    @id = results.first['id'].to_i
+  end
+
+  def == another_insurance
+    self.company == another_insurance.company && self.id == another_insurance.id
+  end
 end

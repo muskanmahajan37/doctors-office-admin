@@ -73,4 +73,8 @@ class Doctor
     end
     doctors
   end
+
+  def remove
+    DB.exec("DELETE FROM doctors WHERE id = #{id}")
+  end
 end
