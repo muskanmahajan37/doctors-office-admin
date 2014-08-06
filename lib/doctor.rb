@@ -28,22 +28,6 @@ class Doctor
     doctors
   end
 
-  def self.all_number_of_patients
-    doctors = []
-    results = DB.exec("SELECT * FROM doctors;")
-    results.each do |result|
-      attributes = {
-        :name => result['name'],
-        :specialty => result['specialty'].to_i,
-        :insurance => result['insurance'].to_i,
-        :id => result['id'].to_i,
-        :patient_count => patient_count('id').to_i
-      }
-      doctors << Doctor.new(attributes)
-    end
-    doctors
-  end
-
   def patient_count
     count = 0
     Patient.all.each do |patient|
@@ -54,6 +38,22 @@ class Doctor
     count = count.to_i
     DB.exec("UPDATE doctors SET patient_count = #{count} WHERE id = #{id};")
     @patient_count = count.to_i
+  end
+
+  def self.all_number_of_patients
+    doctors = []
+    results = DB.exec("SELECT * FROM doctors;")
+    results.each do |result|
+      attributes = {
+        :name => result['name'],
+        :specialty => result['specialty'].to_i,
+        :insurance => result['insurance'].to_i,
+        :id => result['id'].to_i,
+        :patient_count => result['patient_count'].to_i,
+      }
+      doctors << Doctor.new(attributes)
+    end
+    doctors
   end
 
   def save
