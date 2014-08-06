@@ -2,13 +2,14 @@ require 'pg'
 
 class Doctor
 
-  attr_reader :name, :specialty, :id, :insurance
+  attr_reader :name, :specialty, :id, :insurance, :patient_count
 
   def initialize attributes
     @name = attributes[:name]
     @specialty = attributes[:specialty]
     @id = attributes[:id]
     @insurance = attributes[:insurance]
+    @patient_count = attributes[:patient_count]
   end
 
   def self.all
@@ -19,11 +20,40 @@ class Doctor
         :name => result['name'],
         :specialty => result['specialty'].to_i,
         :insurance => result['insurance'].to_i,
+        :patient_count => result['patient_count'].to_i,
         :id => result['id'].to_i
       }
       doctors << Doctor.new(attributes)
     end
     doctors
+  end
+
+  def self.all_number_of_patients
+    doctors = []
+    results = DB.exec("SELECT * FROM doctors;")
+    results.each do |result|
+      attributes = {
+        :name => result['name'],
+        :specialty => result['specialty'].to_i,
+        :insurance => result['insurance'].to_i,
+        :id => result['id'].to_i,
+        :patient_count => patient_count('id').to_i
+      }
+      doctors << Doctor.new(attributes)
+    end
+    doctors
+  end
+
+  def patient_count
+    count = 0
+    Patient.all.each do |patient|
+      if patient.doctor_id == @id
+        count += 1
+      end
+    end
+    count = count.to_i
+    DB.exec("UPDATE doctors SET patient_count = #{count} WHERE id = #{id};")
+    @patient_count = count.to_i
   end
 
   def save
@@ -77,4 +107,5 @@ class Doctor
   def remove
     DB.exec("DELETE FROM doctors WHERE id = #{id}")
   end
+
 end

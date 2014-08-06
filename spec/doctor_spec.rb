@@ -76,4 +76,18 @@ describe 'Doctor' do
       expect(Doctor.all).to eq []
     end
   end
+
+  describe 'patient_count' do
+    it 'counts the number of patients assigned to a doctor' do
+      new_doctor = Doctor.new({:name=>'Joe'})
+      new_doctor.save
+      new_patient1 = Patient.new({:name=>'Jim'})
+      new_patient1.save
+      new_patient1.assign_doctor(new_doctor.id)
+      new_patient2 = Patient.new({:name=>'Jill'})
+      new_patient2.save
+      new_patient2.assign_doctor(new_doctor.id)
+      expect(new_doctor.patient_count).to eq 2
+    end
+  end
 end
