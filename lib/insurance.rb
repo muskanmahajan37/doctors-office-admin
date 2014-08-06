@@ -1,3 +1,5 @@
+require 'pg'
+
 class Insurance
   attr_reader :company, :id
 
