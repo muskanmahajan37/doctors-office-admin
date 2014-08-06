@@ -16,7 +16,7 @@ class Doctor
     results.each do |result|
       attributes = {
         :name => result['name'],
-        :specialty => result['specialty'],
+        :specialty => result['specialty'].to_i,
         :id => result['id'].to_i
       }
       doctors << Doctor.new(attributes)
@@ -29,7 +29,28 @@ class Doctor
     @id = results.first['id'].to_i
   end
 
+  def edit_specialty number
+    DB.exec("UPDATE doctors SET specialty = #{number} WHERE id = #{id};")
+    @specialty = number.to_i
+  end
+
   def == another_doctor
     self.name == another_doctor.name && self.id == another_doctor.id
+  end
+
+  def self.list_by_specialty number
+    # doctors = []
+    # results = DB.exec(SELECT * docs WHERE speciality = #{number})
+    doctors = []
+    results = DB.exec("SELECT * FROM doctors WHERE specialty = #{number};")
+    results.each do |result|
+      attributes = {
+        :name => result['name'],
+        :specialty => result['specialty'].to_i,
+        :id => result['id'].to_i
+      }
+      doctors << Doctor.new(attributes)
+    end
+    doctors
   end
 end
