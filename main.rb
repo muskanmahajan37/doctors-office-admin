@@ -44,6 +44,17 @@ def main_menu
   end
 end
 
+def add_insurance
+  header
+  ws
+  puts "Enter the name of the new Insurance Company:"
+  new_insurance = Insurance.new(:company=>gets.chomp)
+  new_insurance.save
+  puts new_insurance.company + " added."
+  sleep 0.7
+  main_menu
+end
+
 def add_doctor
   header
   ws
@@ -65,6 +76,16 @@ def add_patient
   sleep 0.7
   main_menu
 end
+
+def list_insurance
+  header
+  ws
+  Insurance.all.each do |insurer|
+    puts "Insurance Company: " + insurer.company
+    ln
+  end
+end
+
 
 def list_doctors
   header
