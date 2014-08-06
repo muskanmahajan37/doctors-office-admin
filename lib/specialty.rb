@@ -1,5 +1,3 @@
-require 'pg'
-
 class Specialty
   attr_reader :name, :id
 

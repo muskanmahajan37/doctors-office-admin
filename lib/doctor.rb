@@ -1,5 +1,3 @@
-require 'pg'
-
 class Doctor
 
   attr_reader :name, :specialty, :id, :insurance, :patient_count

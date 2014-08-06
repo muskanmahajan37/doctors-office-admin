@@ -1,5 +1,3 @@
-require 'pg'
-
 class Patient
 
   attr_reader :name, :birthdate, :id, :doctor_id
