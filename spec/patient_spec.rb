@@ -21,5 +21,16 @@ describe 'patient' do
     end
   end
 
+  describe 'assign_doctor' do
+    it 'assigns a patient to a doctor' do
+      new_doctor = Doctor.new({:name=>'Joe', :specialty=>'Gynecologist'})
+      new_doctor.save
+      new_patient = Patient.new({:name=>'Joe', :birthdate=>'1960-05-12'})
+      new_patient.save
+      new_patient.assign_doctor(new_doctor.id)
+      expect(new_patient.doctor_id).to eq new_doctor.id
+    end
+  end
+
 end
 

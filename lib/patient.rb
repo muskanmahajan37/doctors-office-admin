@@ -31,6 +31,11 @@ class Patient
     @id = results.first['id'].to_i
   end
 
+  def assign_doctor number
+    DB.exec("UPDATE patients SET doctor_id = #{number} WHERE id = #{id};")
+    @doctor_id = number
+  end
+
   def == another_patient
     self.name == another_patient.name && self.id == another_patient.id
   end
