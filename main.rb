@@ -55,6 +55,17 @@ def add_doctor
   main_menu
 end
 
+def add_patient
+  header
+  ws
+  puts "Enter the name of the new Patient:"
+  new_patient = Patient.new(:name=>gets.chomp)
+  new_patient.save
+  puts new_patient.name + " added."
+  sleep 0.7
+  main_menu
+end
+
 def list_doctors
   header
   ws
@@ -94,6 +105,12 @@ end
 def list_patients
   header
   ws
+  Patient.all.each do |patient|
+    puts "Name: " + patient.name
+    puts "PatientID: " + patient.id.to_s
+    puts patient.birthdate.to_s
+    ln
+  end
 end
 
 main_menu
