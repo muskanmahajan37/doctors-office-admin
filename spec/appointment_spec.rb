@@ -7,4 +7,10 @@ describe 'Appointment' do
       expect(new_app).to be_an_instance_of Appointment
     end
   end
+
+  describe 'self.all' do
+    it 'returns an empty array' do
+      expect(Appointment.all).to eq []
+    end
+  end
 end
